@@ -12,6 +12,7 @@ RUN apt-get update &&\
     docker-php-ext-enable xdebug &&\
     curl -sS https://getcomposer.org/installer | php &&\
     mv composer.phar /usr/local/bin/composer &&\
+    groupadd -g $GROUP_ID -o developer &&\
     useradd -m developer -u $USER_ID -g $GROUP_ID
 
 COPY ./crontab /var/spool/cron/crontabs/developer

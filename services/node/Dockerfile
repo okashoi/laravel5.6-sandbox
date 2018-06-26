@@ -5,6 +5,7 @@ ARG GROUP_ID
 
 WORKDIR /var/www/app
 
-RUN useradd -m developer -u $USER_ID -g $GROUP_ID
+RUN groupadd -g $GROUP_ID -o developer &&\
+    useradd -m developer -u $USER_ID -g $GROUP_ID
 
 USER developer
