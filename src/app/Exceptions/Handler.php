@@ -7,6 +7,7 @@ use MyApp\Exceptions\MyAppException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -92,5 +93,19 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $exception);
+    }
+
+    /**
+     * Render the given HttpException.
+     * Overridden not to render customized error view.
+     *
+     * @see \Illuminate\Foundation\Exceptions\Handler::renderHttpException()
+     *
+     * @param  \Symfony\Component\HttpKernel\Exception\HttpException  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderHttpException(HttpException $e)
+    {
+        return $this->convertExceptionToResponse($e);
     }
 }
