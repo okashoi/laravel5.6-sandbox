@@ -55,6 +55,11 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
+assert(
+    $response->headers->get('Content-Type') === 'application/json',
+    '\'Content-Type\' of response must be \'application/json\''
+);
+
 $response->send();
 
 $kernel->terminate($request, $response);
